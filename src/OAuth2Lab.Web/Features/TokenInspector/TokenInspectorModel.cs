@@ -16,7 +16,7 @@ public class TokenInspectorModel : PageModel
     public async Task<IActionResult> OnGetAsync()
     {
         var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        if (!result.Succeeded) return RedirectToPage("/");
+        if (!result.Succeeded) return Redirect("/");
 
         var principal = result.Principal!;
         var properties = result.Properties;
