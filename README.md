@@ -80,7 +80,7 @@ dotnet user-secrets init
 
 1. Acesse o [Portal Azure](https://portal.azure.com) → Azure Active Directory → Registros de aplicativo
 2. Crie um novo registro
-3. Em **Redirect URI**, adicione: `https://localhost:7000/signin-microsoft`
+3. Em **Redirect URI**, adicione: `https://localhost:7055/signin-microsoft`
 4. Copie o **Application (client) ID** e **Directory (tenant) ID**
 5. Em **Certificados e segredos**, crie um Client Secret
 
