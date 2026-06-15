@@ -15,7 +15,7 @@ public class CallbackModel(LoginSessionRepository repository) : PageModel
         var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         if (!result.Succeeded || result.Principal is null)
-            return RedirectToPage("/Features/Auth/Error/AuthErrorPage",
+            return RedirectToPage("/Auth/Error/AuthErrorPage",
                 new { message = "Autenticação falhou ou foi cancelada." });
 
         var principal = result.Principal;
@@ -52,6 +52,6 @@ public class CallbackModel(LoginSessionRepository repository) : PageModel
 
         HttpContext.Session.SetString("current_session_id", sessionId);
 
-        return RedirectToPage("/Features/TokenInspector/TokenInspectorPage");
+        return RedirectToPage("/TokenInspector/TokenInspectorPage");
     }
 }

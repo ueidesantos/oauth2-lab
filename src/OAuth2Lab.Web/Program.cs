@@ -10,9 +10,6 @@ builder.Services.AddRazorPages()
     {
         options.RootDirectory = "/Features";
         options.Conventions.AddPageRoute("/Home/Index", "/");
-        options.Conventions.AddPageRoute("/Auth/Callback/CallbackPage", "/auth/callback");
-        options.Conventions.AddPageRoute("/Auth/Error/AuthErrorPage", "/auth/error");
-        options.Conventions.AddPageRoute("/TokenInspector/TokenInspectorPage", "/token-inspector");
     });
 
 builder.Services.AddSsoAuthentication(builder.Configuration);
