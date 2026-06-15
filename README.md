@@ -141,7 +141,7 @@ A aplicação estará disponível em `https://localhost:7055` (ou a porta config
 
 ## Como Testar
 
-1. Acesse `https://localhost:7000`
+1. Acesse `https://localhost:7055`
 2. Clique em um dos botões de login
 3. Autentique-se no provedor escolhido
 4. Você será redirecionado para `/token-inspector` com:
