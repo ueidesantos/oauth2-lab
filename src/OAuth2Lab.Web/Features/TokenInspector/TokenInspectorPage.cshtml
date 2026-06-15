@@ -1,0 +1,121 @@
+@page "/token-inspector"
+@model OAuth2Lab.Web.Features.TokenInspector.TokenInspectorModel
+@using OAuth2Lab.Web.Shared.Models
+@{
+    ViewData["Title"] = "Inspetor de Token — OAuth2 Lab";
+    Layout = "~/Shared/Views/_Layout.cshtml";
+}
+
+<div class="max-w-5xl mx-auto py-8 px-4 space-y-6">
+
+    <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            @if (!string.IsNullOrEmpty(Model.ViewModel?.AvatarUrl))
+            {
+                <img src="@Model.ViewModel.AvatarUrl" class="w-14 h-14 rounded-full border-2 border-gray-200" alt="Avatar" />
+            }
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">@Model.ViewModel?.DisplayName</h1>
+                <p class="text-sm text-gray-500">@Model.ViewModel?.Email</p>
+                <span class="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full text-xs font-semibold
+                    @(Model.ViewModel?.Provider == "Microsoft" ? "bg-blue-100 text-blue-800" :
+                      Model.ViewModel?.Provider == "Google" ? "bg-red-100 text-red-800" :
+                      "bg-gray-100 text-gray-800")">
+                    @Model.ViewModel?.Provider
+                </span>
+            </div>
+        </div>
+        <form method="post" action="/auth/logout">
+            @Html.AntiForgeryToken()
+            <button type="submit"
+                    class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-100 transition">
+                Encerrar sessão
+            </button>
+        </form>
+    </div>
+
+    <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
+        ⚠️ <strong>Laboratório:</strong> tokens exibidos abaixo são apenas para fins didáticos. Nunca exponha tokens em produção.
+    </div>
+
+    <!-- Tokens -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+        <div class="px-6 py-4">
+            <h2 class="font-semibold text-gray-800">Tokens</h2>
+        </div>
+
+        @foreach (var (label, value, decoded) in new[]
+        {
+            ("Access Token", Model.ViewModel?.Tokens.AccessToken, Model.ViewModel?.Tokens.AccessTokenDecoded),
+            ("Id Token", Model.ViewModel?.Tokens.IdToken, Model.ViewModel?.Tokens.IdTokenDecoded),
+            ("Refresh Token", Model.ViewModel?.Tokens.RefreshToken, (string?)null)
+        })
+        {
+            <div class="px-6 py-4 space-y-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">@label</span>
+                    @if (!string.IsNullOrEmpty(value))
+                    {
+                        <span class="text-xs text-green-600 font-medium">✓ disponível</span>
+                    }
+                    else
+                    {
+                        <span class="text-xs text-gray-400">— não disponível</span>
+                    }
+                </div>
+                @if (!string.IsNullOrEmpty(value))
+                {
+                    <div class="font-mono text-xs bg-gray-50 rounded-lg p-3 break-all text-gray-700 max-h-24 overflow-y-auto">@value</div>
+                }
+                @if (!string.IsNullOrEmpty(decoded))
+                {
+                    <details class="text-xs">
+                        <summary class="cursor-pointer text-blue-600 hover:underline select-none">Ver payload decodificado</summary>
+                        <pre class="mt-2 bg-gray-900 text-green-400 rounded-lg p-3 overflow-x-auto text-xs">@decoded</pre>
+                    </details>
+                }
+            </div>
+        }
+
+        @if (Model.ViewModel?.Tokens.ExpiresAt.HasValue == true)
+        {
+            <div class="px-6 py-4">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Expiração</span>
+                <p class="mt-1 text-sm text-gray-700">@Model.ViewModel.Tokens.ExpiresAt.Value.ToString("dd/MM/yyyy HH:mm:ss") UTC</p>
+            </div>
+        }
+
+        @if (Model.ViewModel?.Tokens.Scopes.Count > 0)
+        {
+            <div class="px-6 py-4">
+                <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Escopos concedidos</span>
+                <div class="mt-2 flex flex-wrap gap-2">
+                    @foreach (var scope in Model.ViewModel.Tokens.Scopes)
+                    {
+                        <span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-mono">@scope</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Claims -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100">
+        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <h2 class="font-semibold text-gray-800">Claims recebidas (@(Model.ViewModel?.Claims.Count ?? 0))</h2>
+        </div>
+        <div class="divide-y divide-gray-50">
+            @foreach (var claim in Model.ViewModel?.Claims ?? [])
+            {
+                <div class="px-6 py-3 flex gap-4 text-sm hover:bg-gray-50">
+                    <span class="font-mono text-xs text-gray-500 w-64 shrink-0 truncate" title="@claim.Type">@claim.Type</span>
+                    <span class="text-gray-800 break-all">@claim.Value</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="text-center text-xs text-gray-400">
+        Sessão ID: <span class="font-mono">@Model.ViewModel?.SessionId</span>
+    </div>
+</div>
