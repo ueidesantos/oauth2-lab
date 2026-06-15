@@ -1,1 +1,5 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OAuth2Lab.Web/OAuth2Lab.Web.csproj" />
+  </Folder>
+</Solution>
