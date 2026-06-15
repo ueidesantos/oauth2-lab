@@ -94,9 +94,8 @@ dotnet user-secrets set "Authentication:Microsoft:ClientSecret" "seu-client-secr
 
 1. Acesse o [Google Cloud Console](https://console.cloud.google.com)
 2. Crie um projeto → APIs & Serviços → Credenciais → OAuth 2.0
-3. Em **Origens JavaScript autorizadas**: `https://localhost:7000`
-4. Em **URIs de redirecionamento autorizados**: `https://localhost:7000/signin-google`
-
+3. Em **Origens JavaScript autorizadas**: `https://localhost:7055`
+4. Em **URIs de redirecionamento autorizados**: `https://localhost:7055/signin-google`
 ```bash
 dotnet user-secrets set "Authentication:Google:ClientId" "seu-client-id.apps.googleusercontent.com"
 dotnet user-secrets set "Authentication:Google:ClientSecret" "seu-client-secret"
