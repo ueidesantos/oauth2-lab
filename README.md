@@ -105,8 +105,7 @@ dotnet user-secrets set "Authentication:Google:ClientSecret" "seu-client-secret"
 
 1. Acesse [GitHub → Settings → Developer settings → OAuth Apps](https://github.com/settings/developers)
 2. Crie uma nova OAuth App
-3. Em **Authorization callback URL**: `https://localhost:7000/signin-github`
-
+3. Em **Authorization callback URL**: `https://localhost:7055/signin-github`
 ```bash
 dotnet user-secrets set "Authentication:GitHub:ClientId" "seu-client-id"
 dotnet user-secrets set "Authentication:GitHub:ClientSecret" "seu-client-secret"
