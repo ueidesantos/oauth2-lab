@@ -137,7 +137,7 @@ dotnet user-secrets set "..." "..."
 dotnet run
 ```
 
-A aplicação estará disponível em `https://localhost:7000` (ou a porta configurada no launchSettings.json).
+A aplicação estará disponível em `https://localhost:7055` (ou a porta configurada no launchSettings.json).
 
 ---
 
