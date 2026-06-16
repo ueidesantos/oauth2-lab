@@ -1,4 +1,4 @@
-# OAuth2 Lab
+# OAuth 2.0 / OpenID Connect Lab
 
 Laboratório de aprendizado para autenticação SSO com **Microsoft Entra ID**, **Google** e **GitHub** usando OAuth 2.0 / OpenID Connect em ASP.NET Core 10.
 
